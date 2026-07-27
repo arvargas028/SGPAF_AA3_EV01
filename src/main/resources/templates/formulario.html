@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SGPAF - Registro de requisitos</title>
+</head>
+
+<body>
+<h1>Registro de requisitos de práctica</h1>
+
+<p>
+    En esta sección se registrará la información básica del estudiante
+    y el seguimiento de los requisitos de práctica.
+</p>
+
+<nav>
+    <a href="/">Volver al inicio</a>
+    <br><br>
+    <a href="/listado">Ver listado de registros</a>
+</nav>
+
+<br>
+
+<form th:action="@{/guardar}" method="post">
+
+    <label for="tipoDocumento">Tipo de documento:</label>
+    <input type="text" id="tipoDocumento" name="tipoDocumento" required>
+    <br><br>
+
+    <label for="numeroDocumento">Número de documento:</label>
+    <input type="text" id="numeroDocumento" name="numeroDocumento" required>
+    <br><br>
+
+    <label for="nombresApellidos">Nombres y apellidos:</label>
+    <input type="text" id="nombresApellidos" name="nombresApellidos" required>
+    <br><br>
+
+    <label for="semestre">Semestre:</label>
+    <input type="number" id="semestre" name="semestre" required>
+    <br><br>
+
+    <label for="correoInstitucional">Correo institucional:</label>
+    <input type="email" id="correoInstitucional" name="correoInstitucional" required>
+    <br><br>
+
+    <label for="cursoAcademico">Curso académico:</label>
+    <input type="text" id="cursoAcademico" name="cursoAcademico" required>
+    <br><br>
+
+    <label for="grupo">Grupo:</label>
+    <input type="text" id="grupo" name="grupo" required>
+    <br><br>
+
+    <label for="sitioPracticas">Sitio de prácticas:</label>
+    <input type="text" id="sitioPracticas" name="sitioPracticas" required>
+    <br><br>
+
+    <label for="estadoArl">Estado ARL:</label>
+<input type="text" id="estadoArl" name="estadoArl">
+<br><br>
+
+<label for="revisionMonitor">Revisión monitor:</label>
+<input type="text" id="revisionMonitor" name="revisionMonitor">
+<br><br>
+
+<label for="revisionDocente">Revisión docente:</label>
+<input type="text" id="revisionDocente" name="revisionDocente">
+<br><br>
+
+<label for="observaciones">Observaciones:</label>
+<input type="text" id="observaciones" name="observaciones">
+<br><br>
+
+    <button type="submit">Guardar registro</button>
+
+</form>
+
+</body>
+
+</html>
