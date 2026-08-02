@@ -11,55 +11,78 @@
 
     <h1>Listado de seguimiento de requisitos</h1>
 
-<p>
-    En esta sección se mostrarán los registros guardados en la base de datos.
-</p>
+    <p>
+        En esta sección se mostrarán los registros guardados en la base de datos.
+    </p>
 
-<nav>
-    <a href="/">Volver al inicio</a>
-    <br><br>
-    <a href="/formulario">Registrar nuevo seguimiento</a>
-</nav>
+    <nav>
+        <a href="/">Volver al inicio</a>
+        <br><br>
+        <a href="/formulario">Registrar nuevo seguimiento</a>
+    </nav>
 
-<br>
+    <br>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Documento</th>
-            <th>Nombres y apellidos</th>
-            <th>Semestre</th>
-            <th>Correo institucional</th>
-            <th>Curso académico</th>
-            <th>Grupo</th>
-            <th>Sitio de prácticas</th>
-            <th>Estado ARL</th>
-            <th>Revisión monitor</th>
-            <th>Revisión docente</th>
-            <th>Observaciones</th>
-        </tr>
-    </thead>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Documento</th>
+                <th>Nombres y apellidos</th>
+                <th>Semestre</th>
+                <th>Correo institucional</th>
+                <th>Curso académico</th>
+                <th>Grupo</th>
+                <th>Sitio de prácticas</th>
 
-    <tbody>
+                <th>Tétano dosis 1</th>
+                <th>Tétano dosis 2</th>
+                <th>Tétano dosis 3</th>
+                <th>Tétano dosis 4</th>
 
-        <tr th:each="registro : ${registros}">
-    <td th:text="${registro.id}"></td>
-    <td th:text="${registro.tipoDocumento + ' ' + registro.numeroDocumento}"></td>
-    <td th:text="${registro.nombresApellidos}"></td>
-    <td th:text="${registro.semestre}"></td>
-    <td th:text="${registro.correoInstitucional}"></td>
-    <td th:text="${registro.cursoAcademico}"></td>
-    <td th:text="${registro.grupo}"></td>
-    <td th:text="${registro.sitioPracticas}"></td>
-    <td th:text="${registro.estadoArl}"></td>
-    <td th:text="${registro.revisionMonitor}"></td>
-    <td th:text="${registro.revisionDocente}"></td>
-    <td th:text="${registro.observaciones}"></td>
-</tr>
+                <th>Hepatitis B dosis 1</th>
+                <th>Hepatitis B dosis 2</th>
+                <th>Hepatitis B dosis 3</th>
+            </tr>
+        </thead>
 
-    </tbody>
-</table>
+        <tbody>
+
+            <tr th:each="registro : ${registros}">
+                <td th:text="${registro.id}"></td>
+
+                <td th:text="${registro.tipoDocumento + ' ' + registro.numeroDocumento}">
+                </td>
+
+                <td th:text="${registro.nombresApellidos}"></td>
+
+                <td th:text="${registro.semestre}"></td>
+
+                <td th:text="${registro.correoInstitucional}"></td>
+
+                <td th:text="${registro.cursoAcademico}"></td>
+
+                <td th:text="${registro.grupo}"></td>
+
+                <td th:text="${registro.sitioPracticas}"></td>
+
+                <td th:text="${registro.tetanoDosis1}"></td>
+
+                <td th:text="${registro.tetanoDosis2}"></td>
+
+                <td th:text="${registro.tetanoDosis3}"></td>
+
+                <td th:text="${registro.tetanoDosis4}"></td>
+
+                <td th:text="${registro.hepatitisBDosis1}"></td>
+
+                <td th:text="${registro.hepatitisBDosis2}"></td>
+
+                <td th:text="${registro.hepatitisBDosis3}"></td>
+            </tr>
+
+        </tbody>
+    </table>
 
 </body>
 

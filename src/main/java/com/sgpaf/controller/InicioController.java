@@ -12,14 +12,13 @@ import com.sgpaf.dao.SeguimientoRequisitosDAO;
 import com.sgpaf.modelo.SeguimientoRequisitos;
 import com.sgpaf.util.CrearTabla;
 
-
 /**
  * Controlador inicial del módulo web SGPAF.
- * 
- * Esta clase permite verificar que Spring Boot está funcionando
- * y que el navegador puede comunicarse con la aplicación.
+ *
+ * Esta clase permite mostrar las vistas del sistema,
+ * recibir la información del formulario, validar los datos
+ * y consultar los registros almacenados en la base de datos.
  */
-
 @Controller
 public class InicioController {
 
@@ -28,36 +27,81 @@ public class InicioController {
         return "index";
     }
 
-    @GetMapping ("/formulario")
-    public String mostrarFormulario(){
+    @GetMapping("/formulario")
+    public String mostrarFormulario(Model model) {
+
+        model.addAttribute(
+                "registro",
+                new SeguimientoRequisitos()
+        );
+
         return "formulario";
     }
 
     /**
-     * Recibe los datos enviados desde el formulario web
-     * y los guarda en la base de datos mediante el DAO.
+     * Recibe los datos enviados desde el formulario,
+     * valida el correo institucional y verifica que
+     * el número de documento no esté duplicado.
      */
-
     @PostMapping("/guardar")
-    public String guardarRegistro(@ModelAttribute SeguimientoRequisitos registro) {
+    public String guardarRegistro(
+            @ModelAttribute SeguimientoRequisitos registro,
+            Model model) {
+
+        String correo = registro.getCorreoInstitucional();
+
+        if (correo == null
+                || !correo.matches(
+                        "^[A-Za-z0-9._%+-]+@mail[.]uniatlantico[.]edu[.]co$")) {
+
+            model.addAttribute(
+                    "mensajeError",
+                    "El correo debe pertenecer al dominio institucional "
+                    + "@mail.uniatlantico.edu.co"
+            );
+
+            model.addAttribute("registro", registro);
+
+            return "formulario";
+        }
+
         CrearTabla.crearTablaSeguimientoRequisitos();
 
-        SeguimientoRequisitosDAO dao = new SeguimientoRequisitosDAO();
+        SeguimientoRequisitosDAO dao =
+                new SeguimientoRequisitosDAO();
+
+        if (dao.existeDocumento(
+                registro.getNumeroDocumento())) {
+
+            model.addAttribute(
+                    "mensajeError",
+                    "El número de documento ya se encuentra registrado."
+            );
+
+            model.addAttribute("registro", registro);
+
+            return "formulario";
+        }
+
         dao.insertarRegistro(registro);
 
         return "redirect:/listado";
     }
 
     /**
-     * Consulta los registros guardados en la base de datos
-     * y los envía a la página listado.html para mostrarlos.
+     * Consulta los registros almacenados y los envía
+     * a la página listado.html.
      */
     @GetMapping("/listado")
     public String mostrarListado(Model model) {
+
         CrearTabla.crearTablaSeguimientoRequisitos();
 
-        SeguimientoRequisitosDAO dao = new SeguimientoRequisitosDAO();
-        List<SeguimientoRequisitos> registros = dao.consultarRegistros();
+        SeguimientoRequisitosDAO dao =
+                new SeguimientoRequisitosDAO();
+
+        List<SeguimientoRequisitos> registros =
+                dao.consultarRegistros();
 
         model.addAttribute("registros", registros);
 

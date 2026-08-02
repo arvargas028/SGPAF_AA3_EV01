@@ -9,6 +9,16 @@
 <body>
 <h1>Registro de requisitos de práctica</h1>
 
+<body>
+
+    <h1>Registro de requisitos de práctica</h1>
+
+    <div
+        th:if="${mensajeError != null}"
+        style="color: red; font-weight: bold; margin-bottom: 15px;">
+        <span th:text="${mensajeError}"></span>
+    </div>
+
 <p>
     En esta sección se registrará la información básica del estudiante
     y el seguimiento de los requisitos de práctica.
@@ -22,57 +32,149 @@
 
 <br>
 
-<form th:action="@{/guardar}" method="post">
+<form action="/guardar" method="post" th:object="${registro}">
 
     <label for="tipoDocumento">Tipo de documento:</label>
-    <input type="text" id="tipoDocumento" name="tipoDocumento" required>
+    <select id="tipoDocumento" name="tipoDocumento" required>
+        <option value="">Seleccione una opción</option>
+        <option value="CC">CC</option>
+        <option value="CD">CD</option>
+        <option value="CE">CE</option>
+        <option value="NI">NI</option>
+        <option value="PT">PT</option>
+        <option value="SC">SC</option>
+        <option value="TI">TI</option>
+
+    </select>
+
     <br><br>
 
     <label for="numeroDocumento">Número de documento:</label>
-    <input type="text" id="numeroDocumento" name="numeroDocumento" required>
+    <input type="text" 
+    id="numeroDocumento" 
+    name="numeroDocumento" 
+    required
+    minlength="6"
+    maxlength="12"
+    pattern="[0-9]{6,12}"
+    inputmode="numeric"
+    title="Ingrese entre 6 y 12 números, sin letras ni caracteres especiales">
     <br><br>
 
     <label for="nombresApellidos">Nombres y apellidos:</label>
-    <input type="text" id="nombresApellidos" name="nombresApellidos" required>
+    <input 
+    type="text" 
+    id="nombresApellidos" 
+    name="nombresApellidos" 
+    required
+    minlength="3"
+    maxlength="100"
+    pattern="[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]{3,100}"
+    title="Ingrese únicamente letras y espacios entre 3 y 100 caracteres"
+    >
     <br><br>
 
     <label for="semestre">Semestre:</label>
-    <input type="number" id="semestre" name="semestre" required>
+    <input 
+    type="number" 
+    id="semestre" 
+    name="semestre" 
+    required
+    min="6"
+    max="10"
+    step="1"
+    title="Ingrese un semestre 6 y 10">
     <br><br>
 
-    <label for="correoInstitucional">Correo institucional:</label>
-    <input type="email" id="correoInstitucional" name="correoInstitucional" required>
+   <label for="correoInstitucional">Correo institucional:</label>
+    <input
+    type="email"
+    id="correoInstitucional"
+    name="correoInstitucional"
+    required
+    maxlength="100"
+    pattern="^[A-Za-z0-9._%+-]+@mail[.]uniatlantico[.]edu[.]co$"
+    title="Ingrese un correo institucional terminado en @mail.uniatlantico.edu.co"
+    >
     <br><br>
 
     <label for="cursoAcademico">Curso académico:</label>
-    <input type="text" id="cursoAcademico" name="cursoAcademico" required>
+    <select id="cursoAcademico" name="cursoAcademico" required>
+        <option value="">Seleccione una opción</option>
+        <option value="Farmacia Clínica">Farmacia Clínica</option>
+        <option value="Farmacia Hospitalaria y Comunitaria">Farmacia Hospitalaria y Comunitaria</option>
+        <option value="Administración y Gestión de Servicios Farmacéuticos">Administración y Gestión de Servicios Farmacéuticos</option>
+        <option value="Prácticas Académicas">Prácticas Académicas</option>
+    </select>
+
     <br><br>
 
     <label for="grupo">Grupo:</label>
-    <input type="text" id="grupo" name="grupo" required>
+    <input 
+    type="number" 
+    id="grupo" 
+    name="grupo" 
+    required
+    min="1"
+    max="9"
+    step="1"
+    title="Ingrese un número entre 1 y 9">
     <br><br>
 
     <label for="sitioPracticas">Sitio de prácticas:</label>
-    <input type="text" id="sitioPracticas" name="sitioPracticas" required>
+    <select id="sitioPracticas" name="sitioPracticas" required>
+        <option value="">Seleccione una opción</option>
+        <option value="Clínica Centro">Clínica Centro</option>
+        <option value="Clíninca de la Costa">Clínica de la Costa</option>
+        <option value="Fundación Hospital Universidad del Norte (FHUN)">Fundación Hospital Universidad del Norte (FHUN)</option>
+        <option value="Hospital Nazareth">Hospital Nazareth</option>
+        <option value="Camino Adelita de Char">Camino Adelita de Char</option>
+        <option value="Hospital Barranquilla">Hospital Barranquilla</option>
+        <option value="CACE Alta Complejidad">CACE Alta Complejidad</option>
+        <option value="CACE Mental">CACE Mental</option>
+        <option value="CACE Pediatrico">CACE Pedriatico</option>
+        <option value="Clínica Bonnadona">Clínica Bonnadona</option>
+    </select>
+
     <br><br>
 
-    <label for="estadoArl">Estado ARL:</label>
-<input type="text" id="estadoArl" name="estadoArl">
+
+
+<h2>Información de vacunación</h2>
+
+<h3>Tétano</h3>
+
+<label for="tetanoDosis1">Primera dosis:</label>
+<input type="date" id="tetanoDosis1" name="tetanoDosis1">
 <br><br>
 
-<label for="revisionMonitor">Revisión monitor:</label>
-<input type="text" id="revisionMonitor" name="revisionMonitor">
+<label for="tetanoDosis2">Segunda dosis:</label>
+<input type="date" id="tetanoDosis2" name="tetanoDosis2">
 <br><br>
 
-<label for="revisionDocente">Revisión docente:</label>
-<input type="text" id="revisionDocente" name="revisionDocente">
+<label for="tetanoDosis3">Tercera dosis:</label>
+<input type="date" id="tetanoDosis3" name="tetanoDosis3">
 <br><br>
 
-<label for="observaciones">Observaciones:</label>
-<input type="text" id="observaciones" name="observaciones">
+<label for="tetanoDosis4">Cuarta dosis:</label>
+<input type="date" id="tetanoDosis4" name="tetanoDosis4">
 <br><br>
 
-    <button type="submit">Guardar registro</button>
+<h3>Hepatitis B</h3>
+
+<label for="hepatitisBDosis1">Primera dosis:</label>
+<input type="date" id="hepatitisBDosis1" name="hepatitisBDosis1">
+<br><br>
+
+<label for="hepatitisBDosis2">Segunda dosis:</label>
+<input type="date" id="hepatitisBDosis2" name="hepatitisBDosis2">
+<br><br>
+
+<label for="hepatitisBDosis3">Tercera dosis:</label>
+<input type="date" id="hepatitisBDosis3" name="hepatitisBDosis3">
+<br><br>
+   
+<button type="submit">Guardar registro</button>
 
 </form>
 
