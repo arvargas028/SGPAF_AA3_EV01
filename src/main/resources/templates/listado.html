@@ -43,6 +43,13 @@
                 <th>Hepatitis B dosis 1</th>
                 <th>Hepatitis B dosis 2</th>
                 <th>Hepatitis B dosis 3</th>
+
+                <th>Estado ARL</th>
+                <th>Revisión monitor</th>
+                <th>Revisión docente</th>
+                <th>Observaciones</th>
+
+                <th>Acciones</th>
             </tr>
         </thead>
 
@@ -79,6 +86,26 @@
                 <td th:text="${registro.hepatitisBDosis2}"></td>
 
                 <td th:text="${registro.hepatitisBDosis3}"></td>
+
+                <td th:text="${registro.estadoArl}"></td>
+
+                <td th:text="${registro.revisionMonitor}"></td>
+
+                <td th:text="${registro.revisionDocente}"></td>
+
+                <td th:text="${registro.observaciones}"></td>
+
+                <td>
+                    <a th:href="@{/editar/{documento}(documento=${registro.numeroDocumento})}">
+                        Editar
+                    </a>
+
+                    <br><br>
+
+                     <a th:href="@{/eliminar/{documento}(documento=${registro.numeroDocumento})}">
+                        Eliminar
+                    </a>
+                </td>
             </tr>
 
         </tbody>

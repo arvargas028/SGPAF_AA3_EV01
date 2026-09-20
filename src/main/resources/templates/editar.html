@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SGPAF - Editar seguimiento</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <h1>Editar seguimiento de requisitos</h1>
+
+    <p>
+        En esta sección se actualiza el estado de revisión del estudiante.
+    </p>
+
+    <nav>
+        <a href="/listado">Volver al listado</a>
+    </nav>
+
+    <br>
+
+    <form th:action="@{/actualizar}"
+          th:object="${registro}"
+          method="post">
+
+        <input type="hidden"
+               th:field="*{numeroDocumento}">
+
+        <p>
+            <strong>Documento:</strong>
+            <span th:text="*{tipoDocumento + ' ' + numeroDocumento}"></span>
+        </p>
+
+        <p>
+            <strong>Nombres y apellidos:</strong>
+            <span th:text="*{nombresApellidos}"></span>
+        </p>
+
+        <p>
+            <strong>Correo institucional:</strong>
+            <span th:text="*{correoInstitucional}"></span>
+        </p>
+
+        <label for="estadoArl">
+            Estado ARL:
+        </label>
+
+        <br>
+
+        <select id="estadoArl"
+                th:field="*{estadoArl}">
+
+            <option value="">
+                Seleccione una opción
+            </option>
+
+            <option value="Pendiente">
+                Pendiente
+            </option>
+
+            <option value="Aprobado">
+                Aprobado
+            </option>
+
+            <option value="Rechazado">
+                Rechazado
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <label for="revisionMonitor">
+            Revisión del monitor:
+        </label>
+
+        <br>
+
+        <select id="revisionMonitor"
+                th:field="*{revisionMonitor}">
+
+            <option value="">
+                Seleccione una opción
+            </option>
+
+            <option value="Pendiente">
+                Pendiente
+            </option>
+
+            <option value="Aprobado">
+                Aprobado
+            </option>
+
+            <option value="Requiere ajuste">
+                Requiere ajuste
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <label for="revisionDocente">
+            Revisión del docente:
+        </label>
+
+        <br>
+
+        <select id="revisionDocente"
+                th:field="*{revisionDocente}">
+
+            <option value="">
+                Seleccione una opción
+            </option>
+
+            <option value="Pendiente">
+                Pendiente
+            </option>
+
+            <option value="Aprobado">
+                Aprobado
+            </option>
+
+            <option value="Requiere ajuste">
+                Requiere ajuste
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <label for="observaciones">
+            Observaciones:
+        </label>
+
+        <br>
+
+        <textarea id="observaciones"
+                  th:field="*{observaciones}"
+                  rows="5"
+                  cols="50">
+        </textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Guardar cambios
+        </button>
+
+    </form>
+
+</body>
+
+</html>

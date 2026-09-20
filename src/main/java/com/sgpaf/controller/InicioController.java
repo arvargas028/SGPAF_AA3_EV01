@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.sgpaf.dao.SeguimientoRequisitosDAO;
 import com.sgpaf.modelo.SeguimientoRequisitos;
@@ -107,4 +108,52 @@ public class InicioController {
 
         return "listado";
     }
+
+    @GetMapping("/eliminar/{documento}")
+    public String eliminarRegistro(
+        @PathVariable String documento) {
+
+    SeguimientoRequisitosDAO dao =
+            new SeguimientoRequisitosDAO();
+
+    dao.eliminarRegistroPorDocumento(documento);
+
+    return "redirect:/listado";
+    }
+
+    @GetMapping("/editar/{documento}")
+public String mostrarFormularioEdicion(
+        @PathVariable String documento,
+        Model model) {
+
+    SeguimientoRequisitosDAO dao =
+            new SeguimientoRequisitosDAO();
+
+    SeguimientoRequisitos registro =
+            dao.buscarPorDocumento(documento);
+
+    if (registro == null) {
+        return "redirect:/listado";
+    }
+
+    model.addAttribute(
+            "registro",
+            registro
+    );
+
+    return "editar";
+}
+
+@PostMapping("/actualizar")
+public String actualizarRegistro(
+        @ModelAttribute SeguimientoRequisitos registro) {
+
+    SeguimientoRequisitosDAO dao =
+            new SeguimientoRequisitosDAO();
+
+    dao.actualizarRevisionRequisitos(registro);
+
+    return "redirect:/listado";
+}
+
 }

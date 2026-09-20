@@ -321,4 +321,145 @@ public class SeguimientoRequisitosDAO {
 
         return false;
     }
+    public SeguimientoRequisitos buscarPorDocumento(
+        String numeroDocumento) {
+
+    String sql =
+            "SELECT " +
+            "id, " +
+            "tipo_documento, " +
+            "numero_documento, " +
+            "nombres_apellidos, " +
+            "semestre, " +
+            "correo_institucional, " +
+            "curso_academico, " +
+            "grupo, " +
+            "sitio_practicas, " +
+            "tetano_primera_dosis, " +
+            "tetano_segunda_dosis, " +
+            "tetano_tercera_dosis, " +
+            "tetano_cuarta_dosis, " +
+            "hepatitis_b_primera_dosis, " +
+            "hepatitis_b_segunda_dosis, " +
+            "hepatitis_b_tercera_dosis, " +
+            "estado_arl, " +
+            "revision_monitor, " +
+            "revision_docente, " +
+            "observaciones " +
+            "FROM seguimiento_requisitos_practica " +
+            "WHERE numero_documento = ?";
+
+    try (Connection conexion =
+                 ConexionBD.obtenerConexion();
+
+         PreparedStatement sentencia =
+                 conexion.prepareStatement(sql)) {
+
+        sentencia.setString(
+                1,
+                numeroDocumento
+        );
+
+        try (ResultSet resultado =
+                     sentencia.executeQuery()) {
+
+            if (resultado.next()) {
+
+                SeguimientoRequisitos registro =
+                        new SeguimientoRequisitos();
+
+                registro.setId(
+                        resultado.getInt("id")
+                );
+
+                registro.setTipoDocumento(
+                        resultado.getString("tipo_documento")
+                );
+
+                registro.setNumeroDocumento(
+                        resultado.getString("numero_documento")
+                );
+
+                registro.setNombresApellidos(
+                        resultado.getString("nombres_apellidos")
+                );
+
+                registro.setSemestre(
+                        resultado.getInt("semestre")
+                );
+
+                registro.setCorreoInstitucional(
+                        resultado.getString("correo_institucional")
+                );
+
+                registro.setCursoAcademico(
+                        resultado.getString("curso_academico")
+                );
+
+                registro.setGrupo(
+                        resultado.getString("grupo")
+                );
+
+                registro.setSitioPracticas(
+                        resultado.getString("sitio_practicas")
+                );
+
+                registro.setTetanoDosis1(
+                        resultado.getString("tetano_primera_dosis")
+                );
+
+                registro.setTetanoDosis2(
+                        resultado.getString("tetano_segunda_dosis")
+                );
+
+                registro.setTetanoDosis3(
+                        resultado.getString("tetano_tercera_dosis")
+                );
+
+                registro.setTetanoDosis4(
+                        resultado.getString("tetano_cuarta_dosis")
+                );
+
+                registro.setHepatitisBDosis1(
+                        resultado.getString("hepatitis_b_primera_dosis")
+                );
+
+                registro.setHepatitisBDosis2(
+                        resultado.getString("hepatitis_b_segunda_dosis")
+                );
+
+                registro.setHepatitisBDosis3(
+                        resultado.getString("hepatitis_b_tercera_dosis")
+                );
+
+                registro.setEstadoArl(
+                        resultado.getString("estado_arl")
+                );
+
+                registro.setRevisionMonitor(
+                        resultado.getString("revision_monitor")
+                );
+
+                registro.setRevisionDocente(
+                        resultado.getString("revision_docente")
+                );
+
+                registro.setObservaciones(
+                        resultado.getString("observaciones")
+                );
+
+                return registro;
+            }
+        }
+
+         } catch (SQLException error) {
+
+                System.out.println(
+                "Error al buscar el registro: "
+                + error.getMessage()
+                         );
+         }
+
+                return null;
+        }
 }
