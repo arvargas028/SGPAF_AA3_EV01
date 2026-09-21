@@ -109,9 +109,9 @@ public class InicioController {
         return "listado";
     }
 
-    @GetMapping("/eliminar/{documento}")
-    public String eliminarRegistro(
-        @PathVariable String documento) {
+         @GetMapping("/eliminar/{documento}")
+        public String eliminarRegistro(
+        @PathVariable("documento") String documento) {
 
     SeguimientoRequisitosDAO dao =
             new SeguimientoRequisitosDAO();
@@ -123,7 +123,7 @@ public class InicioController {
 
     @GetMapping("/editar/{documento}")
 public String mostrarFormularioEdicion(
-        @PathVariable String documento,
+        @PathVariable("documento") String documento,
         Model model) {
 
     SeguimientoRequisitosDAO dao =
